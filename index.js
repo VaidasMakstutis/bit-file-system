@@ -1,8 +1,11 @@
 const data = require('./lib/data.js');
 
-console.log(data);
+data.create('users', 'petras', { name: 'Petras', age: 99 }, (state, msg) => {
+    if (state) {
+        console.log(msg);
+    } else {
+        console.error(msg);
+    }
 
-data.create();
-data.read();
-data.update();
-data.delete();
+    console.log('Sekantys zingsniai po bandymo sukurti faila....');
+});
