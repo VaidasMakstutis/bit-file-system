@@ -1,6 +1,5 @@
 const data = require('./lib/data.js');
 
-
 // data.create('books', 'du-gaideliai', { text: 'Baltus zirnius kule' }, (err, msg) => {
 //     console.log(err, msg);
 //     console.log('Sekantys zingsniai po bandymo sukurti faila....');
@@ -81,18 +80,62 @@ const data = require('./lib/data.js');
 //     })
 // })
 
-data.updateArrayValue('shop', 'kioskas', 2, 'name', 'Trecias kioskas', (err, msg) => {
-    console.log(err, msg);
+// data.updateArrayValue('shop', 'kioskas', 2, 'name', 'Trecias kioskas', (err, msg) => {
+//     console.log(err, msg);
 
-    data.updateArrayValue('shop', 'kioskas', 3, 'name', 'Ketvirtas kioskas', (err, msg) => {
-        console.log(err, msg);
+//     data.updateArrayValue('shop', 'kioskas', 3, 'name', 'Ketvirtas kioskas', (err, msg) => {
+//         console.log(err, msg);
 
-        data.updateArrayValue('shop', 'kioskas', 0, 'size', 50, (err, msg) => {
-            console.log(err, msg);
+//         data.updateArrayValue('shop', 'kioskas', 0, 'size', 50, (err, msg) => {
+//             console.log(err, msg);
 
-            data.updateArrayValue('shop', 'kioskas', 0, 'color', 'golden', (err, msg) => {
-                console.log(err, msg);
+//             data.updateArrayValue('shop', 'kioskas', 0, 'color', 'golden', (err, msg) => {
+//                 console.log(err, msg);
+//             })
+//         })
+//     })
+// })
+
+
+const initialDataPomidoras = {
+    pavadinimas: 'Lietuvos raudonasis',
+    spalva: 'red',
+    dydis: {
+        x: 5,
+        y: 8,
+        z: 5
+    }
+};
+
+data.create('darzoves', 'pomidoras', initialDataPomidoras, (err, msg) => {
+    console.log('CREATE 1:', err, msg);
+
+    // pirminis perskaitymas
+    data.read('darzoves', 'pomidoras', (err, content) => {
+        console.log('READ 1:', content);
+
+        data.update('darzoves', 'pomidoras', {
+            ...initialDataPomidoras,
+            dydis: {
+                ...initialDataPomidoras.dydis,
+                x: 8,
+                z: 8
+            }
+        }, (err, msg) => {
+            console.log('UPDATE 1:', err, msg);
+
+            // dar karta perskaitom
+            data.read('darzoves', 'pomidoras', (err, content) => {
+                console.log('READ 2:', content);
+
+                data.delete('darzoves', 'pomidoras', (err, msg) => {
+                    console.log('DELETE 1:', err, msg);
+
+                    data.read('darzoves', 'pomidoras', (err, content) => {
+                        console.log('READ 3:', content);
+                    })
+                })
             })
         })
     })
-})
+});
