@@ -1,4 +1,5 @@
 const data = require('./lib/async-data.js');
+const utils = require('./lib/utils.js');
 
 (async () => {
     const duGaideliai = await data.read('books', 'du-gaideliai');
@@ -29,5 +30,18 @@ const data = require('./lib/async-data.js');
 
     const jonasObj3 = await data.read('users', 'jonas');
     console.log(jonasObj3);
-})();
 
+    const books = await data.folderContent('books');
+    console.log(books);
+
+    const paslaptis = 'pomidoras';
+    const slaptaPaslaptis = utils.hash(paslaptis);
+    console.log(paslaptis);
+    console.log(slaptaPaslaptis);
+
+    console.log(utils.hash('labas'));
+    console.log(utils.hash('Labas'));
+    console.log(utils.hash('labs'));
+    console.log(utils.hash('labas '));
+    console.log(utils.hash(' labas'));
+})();
